@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import isEnglish from "is-english";
 
-const SearchBar = ({ onSubmit, onCloseModal }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+type SearchBarProps = {
+  onSubmit: (searchTerm: string) => void;
+  onCloseModal?: () => void;
+};
 
-  const handleChange = (e) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit, onCloseModal }) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     if (!searchTerm.trim()) {
@@ -20,7 +25,7 @@ const SearchBar = ({ onSubmit, onCloseModal }) => {
     if (!isEnglish(searchTerm.trim())) {
       toast.error("Please enter an English word.");
       if (onCloseModal) {
-        onCloseModal(); // Викликаємо функцію для закриття модального вікна
+        onCloseModal();
       }
       return;
     }
