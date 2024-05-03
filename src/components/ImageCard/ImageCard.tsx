@@ -1,19 +1,34 @@
 import React from "react";
 import styles from "./ImageCard.module.css";
 
-const ImageCard = ({ image, onImageClick }) => {
+type Image = {
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+  user: {
+    name: string;
+  };
+  views: number;
+};
+
+type ImageCardProps = {
+  image: Image;
+  onImageClick: (image: Image) => void;
+};
+
+const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
   const handleClick = () => {
-    // Викликати обробник події onImageClick з передачею зображення
     onImageClick(image);
   };
 
   return (
     <li className={styles.card}>
       <img
-        src={image.urls.small} // Використовуємо urls.small для зображення маленького розміру
+        src={image.urls.small}
         alt={image.alt_description}
         className={styles.image}
-        onClick={handleClick} // Обробник кліку на зображенні
+        onClick={handleClick}
       />
       <div className={styles.overlay}>
         <div className={styles.overlayContent}>
@@ -26,3 +41,4 @@ const ImageCard = ({ image, onImageClick }) => {
 };
 
 export default ImageCard;
+
