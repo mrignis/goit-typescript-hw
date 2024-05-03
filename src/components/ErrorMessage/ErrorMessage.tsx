@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ErrorMessage.module.css";
 
-const ErrorMessage = ({ message }) => {
+const ErrorMessage: React.FC<{ message: string }> = ({ message }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   // Змінюємо видимість повідомлення через 2 секунди
@@ -13,12 +13,10 @@ const ErrorMessage = ({ message }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Функція для закриття повідомлення при кліку на кнопку
-
   return (
     <div>
       {isVisible && (
-        <div>
+        <div className={styles.errorMessage}>
           <p>{message}</p>
         </div>
       )}
